@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NewExpense } from "./components/new-expense/NewExpense";
 import { EXPENSES } from "./utils/constants";
 import { Expenses } from "./components/expenses/Expenses";
+import { Header } from "./components/header/Header";
+import { Login } from "./components/login/Login";
 
 const App = () => {
   const [expenses, setExpenses] = useState(EXPENSES);
-  console.log(expenses);
+  const [isLogin, setIsLogin] = useState(false);
 
   const onAddExpense = (newExpense) => {
     setExpenses([...expenses, newExpense]);
   };
 
+  const loginHandler = () => {
+    setIsLogin(true);
+    localStorage.setItem("auth", !isLogin);
+  };
+
+  useEffect(() => {
+    const isAuth = localStorage.getItem("auth");
+    setIsLogin(isAuth);
+  }, []);
+
+  const logOutHandler = () => {
+    setIsLogin(false);
+    localStorage.clear();
+  };
+
   return (
-    <div>
-      <NewExpense onAddExpense={onAddExpense} />
-      <Expenses expenses={expenses} />
-    </div>
+    <>
+      <Header isLogin={isLogin} onLogout={logOutHandler} />
+      {isLogin ? (
+        <>
+          <NewExpense onAddExpense={onAddExpense} />
+          <Expenses expenses={expenses} />
+        </>
+      ) : (
+        <Login onLogin={loginHandler} />
+      )}
+    </>
   );
 };
 export default App;
