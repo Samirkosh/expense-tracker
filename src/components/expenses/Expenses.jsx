@@ -4,7 +4,7 @@ import { Card } from "../UI/card/Card";
 import { ExpensesFilter } from "./expensesFilter/ExpensesFilter";
 import { Chart } from "../chart/Chart";
 
-export const Expenses = ({ expenses }) => {
+export const Expenses = ({ expenses, onOpenClose, showModal, onDelete }) => {
   const [filteredByYear, setFilteredByYear] = useState("2023");
 
   const handleSelected = (event) => {
@@ -20,7 +20,12 @@ export const Expenses = ({ expenses }) => {
     <Card>
       <ExpensesFilter value={filteredByYear} onChange={handleSelected} />
       <Chart expenses={filteredExpenses} />
-      <ExpensesList expenses={filteredExpenses} />
+      <ExpensesList
+        onOpenClose={onOpenClose}
+        expenses={filteredExpenses}
+        showModal={showModal}
+        onDelete={onDelete}
+      />
     </Card>
   );
 };

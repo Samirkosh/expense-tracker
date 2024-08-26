@@ -1,7 +1,12 @@
 import React from "react";
 import { ExpensesItem } from "../expensesItem/ExpensesItem";
 
-export const ExpensesList = ({ expenses }) => {
+export const ExpensesList = ({
+  expenses,
+  onOpenClose,
+  showModal,
+  onDelete,
+}) => {
   return (
     <div>
       {expenses.map((item) => (
@@ -10,6 +15,10 @@ export const ExpensesList = ({ expenses }) => {
           amount={item.amount}
           date={item.date}
           key={item.id}
+          id={item.id}
+          onOpenClose={onOpenClose}
+          showModal={showModal}
+          onDelete={onDelete}
         />
       ))}
     </div>

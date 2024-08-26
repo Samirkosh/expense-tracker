@@ -2,15 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../UI/button/Button";
 
-export const Header = ({ isLogin, onLogout }) => {
+export const Header = ({ isLogin, onLogout, setActiveView }) => {
   return (
     <StyledHeader>
-      <h2>expense tarcker</h2>
-
+      <h2>Expense Tracker</h2>
       {isLogin && (
         <ContainerButton>
-          <Button>Expepnses</Button>
-          <Button>Users</Button>
+          <Button onClick={() => setActiveView("expenses")}>Expenses</Button>
+          <Button onClick={() => setActiveView("users")}>Users</Button>
           <Button onClick={onLogout}>Logout</Button>
         </ContainerButton>
       )}
